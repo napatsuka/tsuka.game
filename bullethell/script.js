@@ -104,7 +104,7 @@ let levelTimer = 0;
 let spawnTimer = 0;
 let spawnBaseInterval = 1.0; // base spawn interval (seconds)
 const MIN_SPAWN_INTERVAL = 0.45; // don't go below this
-const SPAWN_DECAY = 0.0012; // how quickly spawn interval decreases with time (smaller = slower ramp)
+const SPAWN_DECAY = 0.00045; // how quickly spawn interval decreases with time (smaller = slower ramp). Reduced to slow ramp
 let spawnInterval = spawnBaseInterval; // spawn wave every 1s (will be adjusted gradually)
 let activePatterns = []; // patterns chosen per game (functions)
 let lastPattern = null; // name of last spawned pattern (for debug)
@@ -326,8 +326,8 @@ function patternBounce(strength){ for(let i=0;i<Math.max(2,Math.floor(strength/3
 function spawnWavePattern(t){
   // Play a faint sound to clue player to a new wave
   SoundManager.play(420, 'sine', 0.04, 0.02);
-  // strength increases more slowly now: slower by elapsed/20 base and smaller per-level
-  const strength = Math.max(3, Math.floor(3 + level*0.6 + elapsed/20));
+  // strength increases more slowly now: slower by elapsed/40 base and smaller per-level
+  const strength = Math.max(3, Math.floor(3 + level*0.6 + elapsed/40));
   // choose completely at random from the full set of patterns each wave
   const pool = [patternStraight, patternSine, patternRadial, patternSpiral, patternMixed, patternFan, patternSplit, patternEdgeSweep, patternDelayed, patternCluster, patternShotgun, patternZigzag, patternCorkscrew, patternFireworks, patternAccel, patternBounce];
   const idx = Math.floor(Math.random() * pool.length);
