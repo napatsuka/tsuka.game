@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Handy Tetris</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Title screen -->
+  <div id="title-screen" class="overlay">
+    <div class="title-box">
+      <img id="title-image" src="assets/title.png" alt="Handy Tetris" />
+      <h1>Handy Tetris</h1>
+      <p class="desc">Start を押してゲームを開始します。操作: ← → ↓ ↑ (回転) Space(ハードドロップ) P(一時停止)</p>
+      <div class="title-actions">
+        <button id="startButton" class="btn">Start</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game area -->
+  <main class="game-wrap">
+    <div class="board">
+      <canvas id="tetris" width="300" height="600" aria-label="Tetris board"></canvas>
+    </div>
+    <aside class="hud">
+      <div class="panel">
+        <h3>Score</h3>
+        <div id="score">0</div>
+      </div>
+      <div class="panel">
+        <h3>Level</h3>
+        <div id="level">1</div>
+      </div>
+      <div class="panel">
+        <h3>Lines</h3>
+        <div id="lines">0</div>
+      </div>
+      <div class="panel small">
+        <h3>Next</h3>
+        <canvas id="next" width="200" height="100"></canvas>
+      </div>
+
+      <div class="panel small">
+        <h3>High</h3>
+        <div id="highscore">0</div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Game over screen -->
+  <div id="gameover-screen" class="overlay" style="display:none;">
+    <div class="title-box gameover-box">
+      <h2>Game Over</h2>
+      <p>Score: <strong id="gameover-score">0</strong></p>
+      <p>Highscore: <strong id="gameover-high">0</strong></p>
+      <button id="restartButton" class="btn">Restart</button>
+    </div>
+  </div>
+
+  <!-- Mobile controls (shown on small screens) -->
+  <div id="mobile-controls" class="mobile-controls" aria-hidden="true">
+    <button id="btn-left">◀</button>
+    <button id="btn-right">▶</button>
+    <button id="btn-rotate">⤴</button>
+    <button id="btn-drop">↓</button>
+    <button id="btn-hard">⤒</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

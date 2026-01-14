@@ -1,0 +1,37 @@
+*{box-sizing:border-box;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+body{background:linear-gradient(180deg,#0b1222 0%, #111827 100%);color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.title-box{background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));padding:28px;border-radius:12px;text-align:center;border:1px solid rgba(255,255,255,0.06);max-width:1024px}
+#title-image{display:block;margin:0 auto 16px;width:1024px;max-width:100%;height:auto;filter:drop-shadow(0 6px 12px rgba(2,6,23,0.6));}
+.title-box h1{font-size:34px;margin:0 0 8px}
+.title-box .desc{opacity:.9;margin-bottom:12px}
+.btn{background:#06b6d4;border:none;padding:10px 16px;border-radius:8px;color:#042;cursor:pointer;font-weight:700}
+.btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.08);color:#fff;margin-left:8px}
+.game-wrap{display:flex;gap:20px;align-items:flex-start}
+.board{display:inline-block;padding:8px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(0,0,0,0.18));border:2px solid rgba(255,255,255,0.06);box-shadow:inset 0 6px 18px rgba(0,0,0,0.6)}
+canvas#tetris{background:linear-gradient(180deg,#071022,#061024);border-radius:8px;box-shadow:0 12px 32px rgba(2,6,23,0.7);width:300px;height:600px;border:2px solid rgba(255,255,255,0.04)}
+.hud{display:flex;flex-direction:column;gap:12px}
+.panel{background:rgba(255,255,255,0.03);padding:12px;border-radius:8px;width:140px;text-align:center;border:1px solid rgba(255,255,255,0.03)}
+.panel.small{width:140px}
+#score,#level,#lines,#highscore{font-size:18px;font-weight:700;margin-top:8px}
+.small-note{font-size:12px;opacity:0.8}
+
+/* Mobile touch controls */
+.mobile-controls{display:flex;gap:8px;position:fixed;left:50%;transform:translateX(-50%);bottom:12px;background:rgba(0,0,0,0.18);padding:8px;border-radius:999px;z-index:60}
+.mobile-controls button{background:rgba(255,255,255,0.06);border:none;color:#fff;padding:10px 12px;border-radius:8px;font-size:18px}
+@media (min-width:721px){ .mobile-controls{display:none} }
+
+/* small screens */
+@media (max-width:720px){
+  /* Mobile: put HUD to the right and keep board visible */
+  .game-wrap{flex-direction:row;align-items:flex-start;justify-content:center;gap:12px}
+  .board{flex-shrink:0}
+  /* keep the board within viewport while keeping aspect ratio */
+  .board, canvas#tetris{max-width: calc(100vw - 128px); max-height: calc(100vh - 160px); width: auto; height: auto}
+  canvas#tetris{width:100%;height:auto}
+  .hud{flex-direction:column;min-width:110px}
+  .panel{width:100%}
+}
+
+.gameover-box h2{margin:0 0 6px}
+.gameover-box p{margin:6px 0}
