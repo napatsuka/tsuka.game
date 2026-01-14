@@ -1,0 +1,117 @@
+*{box-sizing:border-box;font-family:Segoe UI,Meiryo,Arial,sans-serif}
+body{display:flex;min-height:100vh;align-items:center;justify-content:center;background:#f3f6f9;margin:0}
+.container{width:min(720px,95vw);padding:18px;background:#fff;border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.container h1{margin:0 0 8px;font-size:20px;text-align:center}
+/* ヘッダー（タイトル＋コントロール）を視覚的に分ける */
+.controls{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:14px;padding:10px;border-radius:8px;background:linear-gradient(#ffffff,#fbfbfd);border:1px solid rgba(20,30,40,0.04);flex-wrap:nowrap} 
+/* 左: モード選択 + スコア */
+.controls .left{display:flex;flex-direction:column;gap:8px;align-items:flex-start;margin-right:10px;min-width:180px}
+.controls .left .score{align-self:center;margin-top:4px;font-weight:700;color:#222}
+/* 中央: ステータス */
+.controls > div:nth-child(2){flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:0}
+.status{font-weight:700;white-space:nowrap;display:flex;align-items:center;gap:8px;justify-content:center;min-width:240px;height:28px}
+.status .status-text{display:inline-block;overflow:hidden;text-overflow:ellipsis;max-width:180px}
+.status .status-cpu{visibility:hidden;width:140px;display:inline-flex;align-items:center;gap:6px;justify-content:flex-start;white-space:nowrap;overflow:hidden;text-overflow:ellipsis} 
+/* 右: ボタン類 */
+.controls .right{display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
+.controls .right button{white-space:nowrap}
+#resetBtn{padding:6px 10px;border-radius:6px;border:1px solid #ccc;background:#fff;cursor:pointer} 
+#backTitleBtn{margin-right:8px;padding:6px 10px;border-radius:6px;border:1px solid #ccc;background:#fff;cursor:pointer}
+
+/* CPU 思考表示 */
+.cpu-status{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:18px;background:rgba(0,0,0,0.06);font-weight:600;color:#222;margin-right:8px;white-space:nowrap}
+.cpu-status .dot{width:10px;height:10px;border-radius:50%;background:#2ecc71;box-shadow:0 0 6px rgba(46,204,113,0.5);animation:cpu-blink 1s linear infinite}
+@keyframes cpu-blink{0%{opacity:1}50%{opacity:0.25}100%{opacity:1}}
+
+/* インライン用の小さな CPU 表示（ステータスの横） */
+.cpu-inline{display:inline-flex;align-items:center;gap:8px;margin-left:8px;padding:4px 8px;border-radius:12px;background:rgba(46,204,113,0.08);font-weight:600;color:#2b7f3a;font-size:13px}
+.cpu-inline .dot{width:8px;height:8px;border-radius:50%;background:#2ecc71;box-shadow:0 0 6px rgba(46,204,113,0.4);animation:cpu-blink 1s linear infinite}
+
+/* 右のコントロール（CPU表示 + ボタン）を一行に収める */
+.controls .right{display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
+.controls .right button{white-space:nowrap} 
+
+/* 無効化スタイル */
+select:disabled{opacity:0.6}
+
+/* 便利な隠蔽セレクタ */
+[hidden]{display:none!important}
+
+/* タイトル画面（ページ内に表示） */
+.title-screen{display:block;padding:18px 0;background:linear-gradient(180deg,#fbfcfd,#ffffff);border-bottom:1px solid rgba(0,0,0,0.04);max-height:100vh;overflow:auto;-webkit-overflow-scrolling:touch}
+.title-card{background:transparent;padding:6px 12px;border-radius:8px;box-shadow:none;width:min(520px,94vw);text-align:center;margin:0 auto}
+.title-card img{width:100%;height:auto;max-height:60vh;object-fit:contain;border-radius:6px;margin-bottom:8px;display:block}
+/* 画像をタップ/クリックで拡大表示するためのスタイリング */
+.title-card img:hover{cursor:pointer;opacity:0.95}
+/* ライトボックス風の拡大表示（小さめスクリーンでの操作向け） */
+.title-card .img-fullscreen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.85);z-index:120}
+.title-card .img-fullscreen img{max-width:95%;max-height:95%}
+.title-card h2{margin:0 0 6px;font-size:20px}
+.title-card .subtitle{margin:0 0 12px;color:#555}
+.title-options{display:flex;flex-direction:column;gap:8px;align-items:center}
+.title-options label{display:block}
+.title-actions{margin-top:12px}
+#titleStart{padding:8px 14px;border-radius:8px;border:1px solid #2b6; background:linear-gradient(#2ecc71,#27ae60);color:#fff;cursor:pointer}
+@media (max-width:480px){
+  .title-card{padding:14px}
+  .title-card img{max-height:160px}
+  /* モバイルでの上部レイアウト: 各項目を縦に並べる */
+  .controls{flex-direction:column;align-items:flex-start;gap:8px;overflow-x:auto}
+  .controls .left{display:block;margin-right:0;align-items:flex-start;width:100%}
+  .line{display:block;width:100%;margin-bottom:6px}
+  .line select{width:100%;box-sizing:border-box}
+  .score-line .score{font-weight:700}
+  /* ステータスはスコアの下ではなく非表示にして、スコア横にターンを表示 */
+  .status{display:none}
+  .score .score-turn{display:inline-block;margin-left:8px;font-weight:700;color:#333}
+  /* 右側ボタンを横並び＆同じ大きさにする。折返し禁止、ボタンは縮小可能(min-width:0) */
+  .controls .right{width:100%;display:flex;gap:8px;flex-wrap:nowrap;align-items:center}
+  .controls .right button{flex:1;min-width:0;padding:10px 8px;font-size:15px}
+  /* ボタン間の余白をリセットして改行を防止 */
+  #backTitleBtn{margin-right:8px}
+  #cpuStatus{margin-right:8px}
+  #cpuStatus[hidden]{display:none}
+  #cpuOptions{margin-top:6px}
+  #resetBtn{padding:10px 14px;font-size:16px}
+  .board{gap:6px;padding:6px}
+  .square .cell{inset:8%}
+  h1{font-size:18px}
+  .status{font-size:14px}
+} 
+.controls .left{display:flex;flex-direction:column;gap:8px;align-items:center;margin-right:10px;min-width:140px}
+#cpuOptions select{margin-left:6px}
+.board{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;background:#006400;padding:8px;border-radius:8px}
+.square{position:relative;padding-top:100%;background:linear-gradient(#1f7a2b,#0f4d19);border-radius:6px;overflow:hidden;cursor:pointer;border:1px solid rgba(0,0,0,0.24);box-shadow:inset 0 -2px 6px rgba(0,0,0,0.25)}
+.square.disabled{cursor:default;opacity:.95}
+.square .cell{position:absolute;inset:4%;border-radius:50%;background-size:contain;background-position:center;background-repeat:no-repeat;box-shadow:0 6px 12px rgba(0,0,0,0.35);transition:transform .12s ease,box-shadow .12s ease}
+.square .cell.disc-white{box-shadow:0 4px 10px rgba(0,0,0,0.18);border:1px solid rgba(0,0,0,0.08)}
+.square .cell.disc-black{box-shadow:0 6px 14px rgba(0,0,0,0.55);border:1px solid rgba(255,255,255,0.06)}
+.square.valid::after{content:'';position:absolute;left:50%;top:50%;width:30%;height:30%;transform:translate(-50%,-50%);background:rgba(255,255,255,0.06);border-radius:50%;box-shadow:0 0 0 4px rgba(0,255,0,0.12) inset,0 0 8px rgba(0,255,0,0.18)}
+.legend{margin-top:10px;color:#444}
+
+/* タッチ操作最適化 */
+.square{ -webkit-tap-highlight-color: rgba(0,0,0,0.08); touch-action: manipulation; user-select: none; }
+.square:active{ transform: scale(0.995); }
+#resetBtn, select{touch-action: manipulation}
+
+/* 小さい画面対応 */
+@media (max-width:480px){
+  .container{padding:12px}
+  .controls{flex-direction:column;align-items:flex-start;gap:8px}
+  .controls .left{display:block;margin-right:0;align-items:flex-start}
+  #cpuOptions{margin-top:6px}
+  #resetBtn{padding:10px 14px;font-size:16px}
+  .board{gap:6px;padding:6px}
+  .square .cell{inset:8%}
+  h1{font-size:18px}
+  .status{font-size:14px}
+}
+
+/* --- 結果オーバーレイ & 花火キャンバス --- */
+.result-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.35);z-index:200}
+.result-card{background:linear-gradient(#fff,#fafafa);padding:18px 22px;border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,0.3);text-align:center;min-width:260px}
+.result-text{font-size:18px;font-weight:800;color:#1f2937;margin-bottom:12px}
+.result-actions{display:flex;gap:8px;justify-content:center}
+.result-actions button{padding:8px 12px;border-radius:8px;border:1px solid #ccc;background:#fff;cursor:pointer}
+.fireworks-canvas{position:fixed;inset:0;pointer-events:none;z-index:300}
+/* --- / 結果オーバーレイ & 花火キャンバス --- */

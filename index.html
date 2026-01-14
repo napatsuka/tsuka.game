@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>にゃん兵衛オセロ</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="titleScreen" class="title-screen">
+    <div class="title-card">
+      <img id="titleImage" src="assets/images/title.jpg" alt="タイトル画像" width="1365" height="768" onerror="this.style.display='none'" tabindex="0">
+      <h2>にゃん兵衛オセロ</h2>
+      <p class="subtitle">モードを選んで「開始」を押してください</p>
+      <div class="title-options">
+        <label><input type="radio" name="titleMode" value="hvh"> 対人対戦</label>
+        <label><input type="radio" name="titleMode" value="hvc" checked> CPU対戦</label>
+        <div id="titleCpuOptions" style="display:none; margin-top:8px">
+          CPU: <select id="titleCpuColor"><option value="1">黒 (先手)</option><option value="-1">白 (後手)</option></select>
+          レベル: <select id="titleCpuLevel"><option value="easy">やさしい</option><option value="hard">つよい</option><option value="best" selected>最強</option></select>
+        </div>
+      </div>
+      <div class="title-actions"><button id="titleStart">開始</button></div>
+    </div>
+  </div>
+
+<div id="gameScreen" class="container" hidden>
+    <h1>にゃん兵衛オセロ</h1>
+    <div class="controls">
+      <div class="left">
+        <div class="line mode-line">
+          <label>モード:
+            <select id="modeSelect">
+              <option value="hvh">2人対戦</option>
+              <option value="hvc">CPU対戦</option>
+            </select>
+          </label>
+        </div>
+        <div id="cpuColorWrapper" class="line cpu-line" style="display:none;">
+          <label>CPU:
+            <select id="cpuColorSelect">
+              <option value="1">黒 (先手)</option>
+              <option value="-1">白 (後手)</option>
+            </select>
+          </label>
+        </div>
+        <div id="cpuLevelWrapper" class="line level-line" style="display:none;">
+          <label>レベル:
+            <select id="cpuLevelSelect">
+              <option value="easy">やさしい</option>
+              <option value="hard">つよい</option>
+              <option value="best">最強</option>
+            </select>
+          </label>
+        </div>
+        <div class="line score-line">
+          <div class="score">黒: 0  白: 0 <span class="score-turn" aria-hidden="true"></span></div>
+        </div>
+        <div class="status"><span class="status-text">読み込み中...</span><span class="status-cpu cpu-inline" aria-hidden="true"></span></div>
+      </div>
+      <div class="right">
+        <div id="cpuStatus" class="cpu-status" hidden aria-live="polite" aria-atomic="true"></div>
+        <button id="backTitleBtn">タイトルへ戻る</button>
+      </div>
+    </div>
+    <div id="board" class="board" aria-label="オセロ盤"></div>
+    <div class="legend">クリックで石を置けます。合法手は緑で示されます。</div>
+
+    <!-- 結果オーバーレイ（ゲーム終了時に表示） -->
+    <div id="resultOverlay" class="result-overlay" hidden aria-live="polite" aria-atomic="true">
+      <div class="result-card" role="dialog" aria-modal="true">
+        <div id="resultText" class="result-text"></div>
+        <div class="result-actions">
+          <button id="repeatBtn">もう一度</button>
+          <button id="toTitleBtn">タイトルへ</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

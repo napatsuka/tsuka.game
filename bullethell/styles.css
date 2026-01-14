@@ -1,0 +1,70 @@
+* { box-sizing: border-box; }
+html,body{ height:100%; margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', sans-serif; background:#0b0b1a; color:#fff; }
+canvas{ display:block; width:100%; height:100%; }
+.overlay{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; background:linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4)); z-index: 10; }
+.overlay h1, .overlay h2{ margin:0 0 12px; font-size:2rem; }
+.overlay .subtitle, .overlay .hint{ margin:0 0 18px; opacity:0.9 }
+button{ padding:12px 24px; font-size:1rem; border-radius:8px; border: none; cursor:pointer; background:#ff6b6b; color:#fff; }
+button:active{ transform:translateY(1px); }
+.hidden{ display:none !important; }
+#hud{ position:fixed; left:12px; top:12px; display:flex; gap:12px; font-weight:600; background:rgba(0,0,0,0.2); padding:8px 12px; border-radius:8px; }
+#hud div{ min-width:64px; text-align:center }
+@media (max-width:640px){ .overlay h1{ font-size:1.6rem } button{ padding:10px 18px } }
+
+#best{ margin-bottom:14px; font-size:1rem; opacity:0.95 }
+#best strong{ color:#ffd36b }
+
+.title-img{ display:block; max-width:1200px; width:72%; height:auto; margin:8px 0; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.45); border:2px solid rgba(255,255,255,0.06); }
+@media (max-width:640px){ .title-img{ width:88%; max-width:680px } }
+.title-img[alt]{ opacity:0.98 }
+.title-img:empty{ display:none }
+
+.title-debug{ margin-top:6px; font-size:0.9rem; color:#ffd36b; background:rgba(0,0,0,0.14); padding:6px 8px; border-radius:6px; font-weight:600 }
+
+/* Placeholder when title image fails to load */
+.title-placeholder{ display:flex; align-items:center; justify-content:center; width:240px; max-width:42%; height:140px; margin:8px 0; border-radius:10px; background:linear-gradient(90deg,#16213e,#1f4068); color:#fff; font-weight:700; box-shadow:0 6px 20px rgba(0,0,0,0.35); }
+
+/* Title screen styling: starfield, neon title, pulsing start button */
+#title-screen{ position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+#title-screen .stars{ position:absolute; inset:0; z-index:0; pointer-events:none; background-image: radial-gradient(1px 1px at 20px 30px, rgba(255,255,255,0.9) 50%, transparent 51%), radial-gradient(1px 1px at 80px 120px, rgba(255,255,255,0.6) 50%, transparent 51%), radial-gradient(1px 1px at 180px 60px, rgba(255,255,255,0.5) 50%, transparent 51%); background-size: 220px 220px; opacity:0.35; animation: starsMove 40s linear infinite; filter: blur(0.6px); }
+@keyframes starsMove{ from{ background-position:0 0 } to{ background-position: -800px 1200px } }
+
+/* center container for title content */
+.title-wrap{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; text-align:center; width:100%; max-width:920px; margin:0 auto; padding:6vh 16px; z-index:2 }
+@media (max-width:640px){ .title-wrap{ padding-top:8vh; padding-bottom:6vh } }
+
+#title-screen .neon{ font-size:3.2rem; letter-spacing:2px; text-transform:uppercase; color:#fff; text-shadow: 0 0 8px rgba(122,200,255,0.9), 0 0 28px rgba(255,107,107,0.7); z-index:2 }
+@media (max-width:640px){ #title-screen .neon{ font-size:2rem } }
+
+
+
+#start-btn{ background: linear-gradient(90deg,#ffd36b,#ff6b6b); color:#121212; font-weight:800; padding:14px 28px; border-radius:28px; border:none; box-shadow: 0 8px 28px rgba(255,107,107,0.25), 0 0 40px rgba(255,205,110,0.06); z-index:2; transition: transform .12s ease, box-shadow .12s ease; animation: pulse 1.6s infinite; }
+#start-btn:hover{ transform: translateY(-4px) scale(1.02); box-shadow: 0 12px 40px rgba(255,107,107,0.32), 0 0 60px rgba(255,205,110,0.12); }
+@keyframes pulse{ 0%{ box-shadow: 0 8px 28px rgba(255,107,107,0.18) } 50%{ box-shadow: 0 18px 48px rgba(255,107,107,0.28) } 100%{ box-shadow: 0 8px 28px rgba(255,107,107,0.18) } }
+
+/* subtle scanline for retro feel */
+#title-screen::after{ content:''; position:absolute; inset:0; z-index:1; background-image: linear-gradient(transparent 92%, rgba(255,255,255,0.02) 93%, transparent 94%); opacity:0.06; pointer-events:none; mix-blend-mode:overlay }
+
+/* ensure main overlay content sits above decorative layers */
+#title-screen > *{ z-index:2 }
+#title-screen .title-img{ z-index:2 }
+
+
+/* small visual for player and bullets (just for clarity) */
+.player{ width:36px; height:36px; border-radius:50%; background: #6be6ff }
+
+.particle{ position:absolute; pointer-events:none }
+.boss{ width:80px; height:80px; border-radius:12px; background: linear-gradient(180deg,#ff6b6b,#ff9ff3); box-shadow:0 8px 22px rgba(255,99,132,0.25) }
+
+
+/* polish */
+html,body{ overflow:hidden; }
+button{ box-shadow: 0 6px 20px rgba(255,107,107,0.18); }
+.overlay{ padding:24px; }
+.overlay .hint{ font-size:0.9rem; opacity:0.8 }
+
+/* Game over: space out the back-to-title button a bit lower */
+#game-over button{ display:block; margin:8px auto; }
+#back-title-btn{ margin-top:18px; }
+#hud{ backdrop-filter: blur(6px); box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
+@media (max-width:640px){ button{ font-size:1.05rem; padding:14px 22px } }

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0" />
+  <title>弾幕回避ゲーム</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="title-screen" class="overlay">
+    <!-- animated starfield layer -->
+    <div class="stars" aria-hidden="true"></div>
+    <div class="title-wrap">
+      <h1 class="neon">弾幕回避ゲーム</h1>
+      <p class="subtitle">スワイプで移動して弾を避けよう！</p>
+
+      <!-- optional title artwork (falls back to placeholder) -->
+      <img id="title-img" class="title-img" src="assets/images/title.png" alt="タイトル画像" />
+
+      <div id="best">ベスト: <strong id="best-time">--</strong></div>
+      <button id="start-btn">スタート</button>
+      <p class="hint"><br>モバイル: タッチで自機をスワイプ移動</p>
+    </div>
+  </div>
+
+  <canvas id="game"></canvas>
+
+  <div id="hud">
+    <div id="time">0.0s</div>
+    <div id="level">Lv 1</div>
+  </div>
+
+  <div id="game-over" class="overlay hidden">
+    <h2>ゲームオーバー</h2>
+    <p id="final-time">生存時間: 0.0s</p>
+    <p id="best-note" class="hint"></p>
+    <button id="restart-btn">リトライ</button>
+    <button id="back-title-btn">タイトルに戻る</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
